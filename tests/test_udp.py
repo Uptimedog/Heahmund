@@ -19,3 +19,18 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+import pytest
+import uuid
+
+from heahmund.udp import UDP
+
+
+def test_udp():
+    """UDP Tests"""
+    name = str(uuid.uuid4())
+
+    udp = UDP(name, "8.8.8.8", 443, 10)
+    result = udp.run()
+
+    assert result == {"name": name, "status": "OK"}

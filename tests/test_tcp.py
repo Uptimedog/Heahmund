@@ -21,8 +21,22 @@
 # SOFTWARE.
 
 import pytest
+import uuid
+
+from heahmund.tcp import TCP
 
 
-def test_client():
-    """Client Tests"""
-    assert True == True
+def test_tcp():
+    """TCP Tests"""
+
+    name = str(uuid.uuid4())
+
+    tcp = TCP(name, "example.com", 443, 30)
+    result = tcp.run()
+
+    assert result == {"name": name, "status": "OK"}
+
+    tcp = TCP(name, "example.com", 8000, 3)
+    result = tcp.run()
+
+    assert result == {"name": name, "status": "NOT_OK"}
