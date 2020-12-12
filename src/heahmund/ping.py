@@ -41,6 +41,7 @@ class Ping:
         Returns:
             The Check Result
         """
+
         response = subprocess.run(
             ["ping", "-c", "3", self.hostname], capture_output=True
         )

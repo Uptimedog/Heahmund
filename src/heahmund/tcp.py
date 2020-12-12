@@ -43,6 +43,7 @@ class TCP:
         Returns:
             The Check Result
         """
+
         status = Status.OK
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(self.timeout)

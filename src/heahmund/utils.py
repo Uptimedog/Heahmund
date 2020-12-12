@@ -33,4 +33,5 @@ def url_to_hostname(url="https://example.com"):
     Returns:
         The hostname
     """
+
     return urllib.parse.urlparse(url).netloc

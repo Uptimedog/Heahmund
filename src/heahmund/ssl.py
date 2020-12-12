@@ -20,7 +20,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import ssl
+import datetime
+import socket
+
 from heahmund.logger import Logger
+from heahmund.status import Status
 
 
 class SSL:
@@ -41,4 +46,36 @@ class SSL:
         Returns:
             The Check Result
         """
-        return {"name": self.name, "status": "OK"}
+
+        context = ssl.create_default_context()
+
+        try:
+            # Connects to the server using the SSL context
+            with socket.create_connection(
+                (self.hostname, self.port), timeout=self.timeout
+            ) as sock:
+                sock.settimeout(self.timeout)
+
+                with context.wrap_socket(sock, server_hostname=self.hostname) as ssock:
+                    cert = ssock.getpeercert()
+
+                    # Get the expiration date of the certificate
+                    expiry_date = datetime.datetime.strptime(
+                        cert["notAfter"], "%b %d %H:%M:%S %Y %Z"
+                    )
+
+                    # Get the current date
+                    current_date = datetime.datetime.now()
+
+                    # Calculate the number of days until the certificate expires
+                    days_until_expiry = (expiry_date - current_date).days
+
+                    # Check if the certificate is valid for the specified number of days
+                    if days_until_expiry > days:
+                        return {"name": self.name, "status": Status.OK}
+                    else:
+                        return {"name": self.name, "status": Status.NOT_OK}
+
+        except socket.timeout:
+            # Handle the timeout
+            return {"name": self.name, "status": Status.TIMEOUT}

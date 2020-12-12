@@ -20,14 +20,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import requests
+from http import HTTPStatus
+
+from heahmund.status import Status
 from heahmund.logger import Logger
 
 
-class HTTP:
-    """HTTP Check"""
+class GET:
+    """GET Check"""
 
-    def __init__(self, name):
+    def __init__(self, name, url, headers={}, params={}):
         self.name = name
+        self.url = url
+        self.headers = headers
+        self.params = params
         self.logger = Logger().get_logger(__name__)
 
     def run(self):
@@ -37,4 +44,66 @@ class HTTP:
         Returns:
             The Check Result
         """
-        return {"name": self.name, "status": "OK"}
+
+        try:
+            response = requests.get(self.url, headers=self.headers, params=self.params)
+
+            if response.status_code == HTTPStatus.OK:
+                return {"name": self.name, "status": Status.OK}
+            else:
+                return {"name": self.name, "status": Status.NOT_OK}
+
+        except requests.exceptions.Timeout as e:
+            self.logger.debug(
+                "Get request to url {} throw timeout error {}.".format(self.url, str(e))
+            )
+
+            return {"name": self.name, "status": Status.ERROR}
+
+        except Exception as e:
+            self.logger.debug(
+                "Get request to url {} throw error {}.".format(self.url, str(e))
+            )
+
+            return {"name": self.name, "status": Status.ERROR}
+
+
+class HEAD:
+    """HEAD Check"""
+
+    def __init__(self, name, url, headers={}, params={}):
+        self.name = name
+        self.url = url
+        self.headers = headers
+        self.params = params
+        self.logger = Logger().get_logger(__name__)
+
+    def run(self):
+        """
+        Run The Check
+
+        Returns:
+            The Check Result
+        """
+
+        try:
+            response = requests.head(self.url, headers=self.headers, params=self.params)
+
+            if response.status_code == HTTPStatus.OK:
+                return {"name": self.name, "status": Status.OK}
+            else:
+                return {"name": self.name, "status": Status.NOT_OK}
+
+        except requests.exceptions.Timeout as e:
+            self.logger.debug(
+                "Get request to url {} throw timeout error {}.".format(self.url, str(e))
+            )
+
+            return {"name": self.name, "status": Status.ERROR}
+
+        except Exception as e:
+            self.logger.debug(
+                "Get request to url {} throw error {}.".format(self.url, str(e))
+            )
+
+            return {"name": self.name, "status": Status.ERROR}

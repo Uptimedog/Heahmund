@@ -43,6 +43,7 @@ class UDP:
         Returns:
             The Check Result
         """
+
         status = Status.OK
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         sock.settimeout(self.timeout)
