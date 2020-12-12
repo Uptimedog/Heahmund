@@ -48,7 +48,7 @@ class UDP:
         sock.settimeout(self.timeout)
 
         try:
-            sock.sendto(b'ping', (self.hostname, self.port))
+            sock.sendto(b"ping", (self.hostname, self.port))
 
             self.logger.debug(
                 "Server with hostname {} with port {}.".format(self.hostname, self.port)

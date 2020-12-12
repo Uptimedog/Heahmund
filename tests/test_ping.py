@@ -20,32 +20,23 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import subprocess
+import pytest
+import uuid
 
-from heahmund.logger import Logger
-from heahmund.status import Status
+from heahmund.ping import Ping
 
 
-class Ping:
-    """Ping Check"""
+def test_ping():
+    """Ping Tests"""
 
-    def __init__(self, name, hostname="example.com"):
-        self.name = name
-        self.hostname = hostname
-        self.logger = Logger().get_logger(__name__)
+    name = str(uuid.uuid4())
 
-    def run(self):
-        """
-        Run The Check
+    ping = Ping(name, "example.com")
+    result = ping.run()
 
-        Returns:
-            The Check Result
-        """
-        response = subprocess.run(
-            ["ping", "-c", "3", self.hostname], capture_output=True
-        )
+    assert result == {"name": name, "status": "OK"}
 
-        if response.returncode == 0:
-            return {"name": self.name, "status": Status.OK}
-        else:
-            return {"name": self.name, "status": Status.NOT_OK}
+    ping = Ping(name, "example.us")
+    result = ping.run()
+
+    assert result == {"name": name, "status": "NOT_OK"}
