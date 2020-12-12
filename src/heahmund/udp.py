@@ -20,10 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from app.util.logger import Logger
+import socket
+
+from heahmund.logger import Logger
+from heahmund.status import Status
 
 
-class UdpCheck:
+class UDP:
     """UDP Check"""
 
     def __init__(self, name, hostname="example.com", port=443, timeout=30):
@@ -40,4 +43,39 @@ class UdpCheck:
         Returns:
             The Check Result
         """
-        return {"name": self.name, "status": "OK"}
+        status = Status.OK
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        sock.settimeout(self.timeout)
+
+        try:
+            sock.sendto(b"", (self.hostname, self.port))
+            data, addr = sock.recvfrom(1024)
+
+            self.logger.debug(
+                "Server with hostname {} with port {}.".format(self.hostname, self.port)
+            )
+
+            status = Status.OK
+
+        except socket.timeout:
+            self.logger.debug(
+                "Server with hostname {} with port {} timeout error.".format(
+                    self.hostname, self.port
+                )
+            )
+
+            status = Status.NOT_OK
+
+        except socket.error as e:
+            self.logger.debug(
+                "Server with hostname {} with port {} error raised {}.".format(
+                    self.hostname, self.port, str(e)
+                )
+            )
+
+            status = Status.ERROR
+
+        finally:
+            sock.close()
+
+        return {"name": self.name, "status": status}

@@ -20,14 +20,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from app.util.logger import Logger
+from heahmund.logger import Logger
 
 
-class HttpCheck:
-    """Http Check"""
+class SSL:
+    """SSL Check"""
 
-    def __init__(self, name):
+    def __init__(self, name, hostname="example.com", days=10, port=443, timeout=30):
         self.name = name
+        self.hostname = hostname
+        self.days = days
+        self.port = port
+        self.timeout = timeout
         self.logger = Logger().get_logger(__name__)
 
     def run(self):

@@ -20,17 +20,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from app.util.logger import Logger
+from heahmund.logger import Logger
 
 
-class TcpCheck:
-    """TCP Check"""
+class Ping:
+    """Ping Check"""
 
-    def __init__(self, name, hostname="example.com", port=443, timeout=30):
+    def __init__(self, name, hostname="example.com"):
         self.name = name
         self.hostname = hostname
-        self.port = port
-        self.timeout = timeout
         self.logger = Logger().get_logger(__name__)
 
     def run(self):

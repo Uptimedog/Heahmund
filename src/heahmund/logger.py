@@ -20,22 +20,30 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from app.util.logger import Logger
+import logging
 
 
-class PingCheck:
-    """Ping Check"""
+class Logger:
+    """Logger Class
 
-    def __init__(self, name, hostname="example.com"):
-        self.name = name
-        self.hostname = hostname
-        self.logger = Logger().get_logger(__name__)
+    Attributes:
+        loggers: A dict of loggers
+    """
 
-    def run(self):
-        """
-        Run The Check
+    loggers = {}
+
+    def get_logger(self, name=__name__):
+        """Get logger instance by name
+
+        Args:
+            name: logger identifier
 
         Returns:
-            The Check Result
+            An instance of logging.Logger
         """
-        return {"name": self.name, "status": "OK"}
+        if name in self.loggers:
+            return self.loggers[name]
+
+        self.loggers[name] = logging.getLogger(name)
+
+        return self.loggers[name]
