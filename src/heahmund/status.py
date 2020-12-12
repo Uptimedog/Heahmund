@@ -19,3 +19,19 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+
+class Status:
+    """Checks Status"""
+
+    # OK Status
+    OK = "OK"
+
+    # Not OK Status
+    NOT_OK = "NOT_OK"
+
+    # Error Status
+    ERROR = "ERROR"
+
+    # Timeout Status
+    TIMEOUT = "TIMEOUT"

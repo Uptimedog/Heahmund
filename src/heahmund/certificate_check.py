@@ -20,21 +20,25 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from app.util.logger import Logger
 
-class FileSystem:
-    """FileSystem Class"""
 
-    @staticmethod
-    def read_file(cls, file_path):
+class CertificateCheck:
+    """Certificate Check"""
+
+    def __init__(self, name, hostname="example.com", days=10, port=443, timeout=30):
+        self.name = name
+        self.hostname = hostname
+        self.days = days
+        self.port = port
+        self.timeout = timeout
+        self.logger = Logger().get_logger(__name__)
+
+    def run(self):
         """
-        Read file content with file path
-
-        Args:
-            file_path: The file path
+        Run The Check
 
         Returns:
-            The file content
+            The Check Result
         """
-        f = open(file_path, "r")
-
-        return f.read()
+        return {"name": self.name, "status": "OK"}
