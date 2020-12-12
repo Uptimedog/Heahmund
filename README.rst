@@ -7,11 +7,6 @@
 
 |
 
-.. image:: https://raw.githubusercontent.com/Uptimedog/Heahmund/main/chart/chart.png
-   :width: 100%
-
-|
-
 ========
 Heahmund
 ========
