@@ -59,7 +59,7 @@ class TCP:
         except socket.timeout:
             self.logger.debug(
                 "Server with hostname {} with port {} timeout error.".format(
-                    hostname, port
+                    self.hostname, self.port
                 )
             )
 
@@ -68,7 +68,7 @@ class TCP:
         except socket.error as e:
             self.logger.debug(
                 "Server with hostname {} with port {} error raised {}.".format(
-                    hostname, port, str(e)
+                    self.hostname, self.port, str(e)
                 )
             )
 
