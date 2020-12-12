@@ -71,7 +71,7 @@ class SSL:
                     days_until_expiry = (expiry_date - current_date).days
 
                     # Check if the certificate is valid for the specified number of days
-                    if days_until_expiry > days:
+                    if days_until_expiry > self.days:
                         return {"name": self.name, "status": Status.OK}
                     else:
                         return {"name": self.name, "status": Status.NOT_OK}
