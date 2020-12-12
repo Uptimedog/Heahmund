@@ -1,6 +1,6 @@
 # MIT License
 #
-# Copyright (c) 2022 Clivern
+# Copyright (c) 2023 Clivern
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -20,4 +20,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from .client import Client
+
+class FileSystem:
+    """FileSystem Class"""
+
+    @staticmethod
+    def read_file(cls, file_path):
+        """
+        Read file content with file path
+
+        Args:
+            file_path: The file path
+
+        Returns:
+            The file content
+        """
+        f = open(file_path, "r")
+
+        return f.read()

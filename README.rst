@@ -1,22 +1,22 @@
-.. image:: https://img.shields.io/pypi/v/Alertify.svg
+.. image:: https://img.shields.io/pypi/v/Heahmund.svg
     :alt: PyPI-Server
-    :target: https://pypi.org/project/Alertify/
-.. image:: https://github.com/Uptimedog/Alertify/actions/workflows/ci.yml/badge.svg
+    :target: https://pypi.org/project/Heahmund/
+.. image:: https://github.com/Uptimedog/Heahmund/actions/workflows/ci.yml/badge.svg
     :alt: Build Status
-    :target: https://github.com/Uptimedog/Alertify/actions/workflows/ci.yml
+    :target: https://github.com/Uptimedog/Heahmund/actions/workflows/ci.yml
 
 |
 
-.. image:: https://raw.githubusercontent.com/Uptimedog/Alertify/main/chart/chart.png
+.. image:: https://raw.githubusercontent.com/Uptimedog/Heahmund/main/chart/chart.png
    :width: 100%
 
 |
 
 ========
-Alertify
+Heahmund
 ========
 
-    Uptimedog Alerting Integrations
+    Relentless Health Checks in Python
 
 
 Note

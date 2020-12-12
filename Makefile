@@ -5,7 +5,7 @@ tox ?= tox
 
 help: Makefile
 	@echo
-	@echo " Choose a command run in Alertify:"
+	@echo " Choose a command run in Heahmund:"
 	@echo
 	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
 	@echo
@@ -18,7 +18,7 @@ config:
 	$(pip) install wheel
 	$(pip) install tox
 	$(pip) install setuptools-scm
-        $(PIP) install git+https://github.com/psf/black
+	$(pip) install git+https://github.com/psf/black
 
 
 ## test: Run test case.
